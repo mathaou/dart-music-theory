@@ -1,0 +1,18 @@
+name: dart_music_theory
+version: 1.0.1
+description: A direct port of music-theory for go.
+homepage: https://pub.dev/packages/dart_music_theory
+documentation: https://github.com/mathaou/dart-music-theory
+environment:
+  sdk: '>=2.1.0 <3.0.0'
+dependencies:
+  yaml: ^2.2.1
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  test: '>=1.15.2' # any higher causes an error
+  flutter_test:
+    sdk: flutter
+flutter:
+  assets:
+    - test/testdata/
