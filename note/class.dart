@@ -87,6 +87,7 @@ PRIVATE
  */
 
 String _stringOf(Class c, AdjSymbol adj) {
+  // disable
   switch(c) {
     case Class.C:
       return "C";
