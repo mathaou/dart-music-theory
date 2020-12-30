@@ -1,21 +1,21 @@
 import '../note/class.dart';
 
-var i1 = Interval(1);
-var i2 = Interval(2);
-var i3 = Interval(3);
-var i4 = Interval(4);
-var i5 = Interval(5);
-var i6 = Interval(6);
-var i7 = Interval(7);
-var i8 = Interval(8);
-var i9 = Interval(9);
-var i10 = Interval(10);
-var i11 = Interval(11);
-var i12 = Interval(12);
-var i13 = Interval(13);
-var i14 = Interval(14);
-var i15 = Interval(15);
-var i16 = Interval(16);
+final i1 = Interval(1);
+final i2 = Interval(2);
+final i3 = Interval(3);
+final i4 = Interval(4);
+final i5 = Interval(5);
+final i6 = Interval(6);
+final i7 = Interval(7);
+final i8 = Interval(8);
+final i9 = Interval(9);
+final i10 = Interval(10);
+final i11 = Interval(11);
+final i12 = Interval(12);
+final i13 = Interval(13);
+final i14 = Interval(14);
+final i15 = Interval(15);
+final i16 = Interval(16);
 
 class Interval {
   int step;
@@ -29,10 +29,8 @@ class Interval {
   }
 
   @override
-  bool operator == (Object other) =>
-      identical(this, other) ||
-          other is Interval &&
-            step == other.step;
+  bool operator ==(Object other) =>
+      identical(this, other) || other is Interval && step == other.step;
 
   @override
   int get hashCode => step.hashCode;
@@ -51,5 +49,20 @@ void forAllIn(Map<Interval, dynamic> setIntervals, Function(Class) callback) {
 
 /// Order of all the intervals, e.g. for stepping from the root of a scale outward to its other tones.
 var intervalOrder = <Interval>[
-  i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16
+  i1,
+  i2,
+  i3,
+  i4,
+  i5,
+  i6,
+  i7,
+  i8,
+  i9,
+  i10,
+  i11,
+  i12,
+  i13,
+  i14,
+  i15,
+  i16
 ];

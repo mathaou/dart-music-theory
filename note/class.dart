@@ -6,21 +6,7 @@ import 'adjsymbol.dart';
 import 'octave.dart';
 
 /// Class of pitch for a note (across all octaves)
-enum Class {
-  Nil,
-  C,
-  Cs,
-  D,
-  Ds,
-  E,
-  F,
-  Fs,
-  G,
-  Gs,
-  A,
-  As,
-  B
-}
+enum Class { Nil, C, Cs, D, Ds, E, F, Fs, G, Gs, A, As, B }
 
 /// a note will return its Class and Octave
 Tuple<Class, Octave> nameOf(String text) {
@@ -35,51 +21,6 @@ Tuple<Class, Octave> step(Class c, int inc) {
 /// of the note, expressed with Sharps or Flats
 String string(Class c, AdjSymbol adj) {
   return _stringOf(c, adj);
-}
-
-// might be useful at some point
-int getClassValue(Class c) {
-  var value = -1;
-  switch(c){
-    case Class.C:
-      return 1;
-      break;
-    case Class.Cs:
-      return 2;
-      break;
-    case Class.D:
-      return 3;
-      break;
-    case Class.Ds:
-      return 4;
-      break;
-    case Class.E:
-      return 5;
-      break;
-    case Class.F:
-      return 6;
-      break;
-    case Class.Fs:
-      return 7;
-      break;
-    case Class.G:
-      return 8;
-      break;
-    case Class.Gs:
-      return 9;
-      break;
-    case Class.A:
-      return 10;
-      break;
-    case Class.As:
-      return 11;
-      break;
-    case Class.B:
-      return 12;
-      break;
-  }
-
-  return value;
 }
 
 /*
@@ -115,7 +56,7 @@ String _stringOf(Class c, AdjSymbol adj) {
 }
 
 String _stringFlatOf(Class c) {
-  switch(c) {
+  switch (c) {
     case Class.Cs:
       return "Db";
     case Class.Ds:
@@ -132,7 +73,7 @@ String _stringFlatOf(Class c) {
 }
 
 String _stringSharpOf(Class c) {
-  switch(c) {
+  switch (c) {
     case Class.Cs:
       return "C#";
     case Class.Ds:
@@ -150,15 +91,23 @@ String _stringSharpOf(Class c) {
 
 Class baseNameOf(String text) {
   if (text.length > 0) {
-    switch(text.substring(0, 1)) {
-      case "C": return Class.C;
-      case "D": return Class.D;
-      case "E": return Class.E;
-      case "F": return Class.F;
-      case "G": return Class.G;
-      case "A": return Class.A;
-      case "B": return Class.B;
-      default: return Class.Nil;
+    switch (text.substring(0, 1)) {
+      case "C":
+        return Class.C;
+      case "D":
+        return Class.D;
+      case "E":
+        return Class.E;
+      case "F":
+        return Class.F;
+      case "G":
+        return Class.G;
+      case "A":
+        return Class.A;
+      case "B":
+        return Class.B;
+      default:
+        return Class.Nil;
     }
   }
 
@@ -170,7 +119,7 @@ int baseStepOf(String text) {
     return 0;
   }
 
-  switch(adjSymbolBegin(text.substring(1))) {
+  switch (adjSymbolBegin(text.substring(1))) {
     case AdjSymbol.Sharp:
       return 1;
     case AdjSymbol.Flat:
