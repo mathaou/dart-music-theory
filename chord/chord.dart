@@ -54,6 +54,7 @@ class Chord {
   }
 
   void parseForms(String name) {
+    // TODO: minmaj 7 failing
     var toDelete = <scale.Interval>[];
     forms.forEach((element) {
       if (element.pos == null || element.pos.hasMatch(name)) {

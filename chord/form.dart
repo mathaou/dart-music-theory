@@ -6,14 +6,17 @@ import '../scale/interval.dart' as scale;
 class Form {
   String name;
   RegExp pos;
+
   /// maps an interval-from-chord-root to a +/1 semitone adjustment
   Map<scale.Interval, int> add;
+
   /// maps an interval-from-chord-root to omit
   List<scale.Interval> omit;
 
   /// MatchString processes the positive/negative regular expressions to determine if this form matches a string.
   bool matchString(String s) {
-    return pos == null || pos.hasMatch(s); // way too many extra steps in original
+    return pos == null ||
+        pos.hasMatch(s); // way too many extra steps in original
   }
 }
 
@@ -69,24 +72,28 @@ var forms = <Form>[
       scale.i4: 5, // major 3rd
       scale.i5: 7, // perfect 5th
     }
-    ..omit = <scale.Interval>[
-      scale.i3
-    ],
+    ..omit = <scale.Interval>[scale.i3],
 
   // Fifth
 
   Form()
     ..name = "Omit Fifth"
     ..pos = RegExp("$_omitExp${_nExp}5")
-    ..omit = <scale.Interval>[
-      scale.i5
-    ],
+    ..omit = <scale.Interval>[scale.i5],
   Form()
     ..name = "Flat Fifth"
     ..pos = RegExp("^$_flatExp${_nExp}5")
     ..add = <scale.Interval, int>{
       scale.i5: 6, // flat 5th
     },
+  Form()
+    ..name = "Power Chord"
+    ..pos = RegExp("5")
+    ..add = <scale.Interval, int>{
+      scale.i4: 5, // major 3rd
+      scale.i5: 7, // perfect 5th
+    }
+    ..omit = <scale.Interval>[scale.i3],
 
   // Sixth
 
@@ -105,9 +112,7 @@ var forms = <Form>[
   Form()
     ..name = "Omit Sixth"
     ..pos = RegExp("$_omitExp${_nExp}6")
-    ..omit = <scale.Interval>[
-      scale.i6
-    ],
+    ..omit = <scale.Interval>[scale.i6],
 
   // Seventh
 
@@ -125,15 +130,22 @@ var forms = <Form>[
     },
   Form()
     ..name = "Major Seventh"
-    ..pos = RegExp("$_majorExp${_nExp}7")
+    ..pos = RegExp("^$_majorExp${_nExp}7")
     ..add = <scale.Interval, int>{
       scale.i7: 11 // major 7th
     },
   Form()
     ..name = "Minor Seventh"
-    ..pos = RegExp("$_minorExp${_nExp}7")
+    ..pos = RegExp("^$_minorExp${_nExp}7")
     ..add = <scale.Interval, int>{
       scale.i7: 10 // dom 7th
+    },
+  Form()
+    ..name = "Minor Major Seventh"
+    ..pos = RegExp("$_minorExp$_majorExp${_nExp}7")
+    ..add = <scale.Interval, int>{
+      scale.i3: 3,
+      scale.i7: 11 // dom 7th
     },
   Form()
     ..name = "Diminished Seventh"
@@ -165,9 +177,7 @@ var forms = <Form>[
   Form()
     ..name = "Omit Seventh"
     ..pos = RegExp("$_omitExp${_nExp}7")
-    ..omit = <scale.Interval>[
-      scale.i7
-    ],
+    ..omit = <scale.Interval>[scale.i7],
 
   // Ninth
 
@@ -176,6 +186,18 @@ var forms = <Form>[
     ..pos = RegExp("9")
     ..add = <scale.Interval, int>{
       scale.i9: 14 // 9th
+    },
+  Form()
+    ..name = "Sharp Ninth"
+    ..pos = RegExp("$_sharpExp\s?9")
+    ..add = <scale.Interval, int>{
+      scale.i9: 15 // 9th
+    },
+  Form()
+    ..name = "Flat Ninth"
+    ..pos = RegExp("$_flatExp\s?9")
+    ..add = <scale.Interval, int>{
+      scale.i9: 13 // 9th
     },
   Form()
     ..name = "Dominant Ninth"
@@ -207,9 +229,7 @@ var forms = <Form>[
   Form()
     ..name = "Omit Ninth"
     ..pos = RegExp("$_omitExp${_nExp}9")
-    ..omit = <scale.Interval>[
-      scale.i9
-    ],
+    ..omit = <scale.Interval>[scale.i9],
 
   // Eleventh
 
@@ -234,7 +254,7 @@ var forms = <Form>[
     ..name = "Major Eleventh"
     ..pos = RegExp("$_majorExp${_nExp}11")
     ..add = <scale.Interval, int>{
-      scale.i7: 11, // minor 7th
+      scale.i7: 11, // major 7th
       scale.i9: 14, // dom 9th
       scale.i11: 17 // dom 11th
     },
@@ -248,11 +268,17 @@ var forms = <Form>[
       scale.i11: 17 // dom 11th
     },
   Form()
+    ..name = "Sharp Eleventh"
+    ..pos = RegExp("$_sharpExp\s?11")
+    ..add = <scale.Interval, int>{scale.i11: 18},
+  Form()
+    ..name = "Flat Eleventh"
+    ..pos = RegExp("$_flatExp\s?11")
+    ..add = <scale.Interval, int>{scale.i11: 16},
+  Form()
     ..name = "Omit Eleventh"
     ..pos = RegExp("$_omitExp${_nExp}11")
-    ..omit = <scale.Interval>[
-      scale.i11
-    ],
+    ..omit = <scale.Interval>[scale.i11],
 
   // Thirteenth
 
@@ -263,6 +289,18 @@ var forms = <Form>[
       scale.i13: 21 // dom 13th
     },
   Form()
+    ..name = "Sharp Thirteenth"
+    ..pos = RegExp("$_sharpExp\s?13")
+    ..add = <scale.Interval, int>{
+      scale.i13: 22 // dom 13th
+    },
+  Form()
+    ..name = "Flat Thirteenth"
+    ..pos = RegExp("$_flatExp")
+    ..add = <scale.Interval, int>{
+      scale.i13: 20 // dom 13th
+    },
+  Form()
     ..name = "Dominant Thirteenth"
     ..pos = RegExp("$_dominantExp${_nExp}13")
     ..add = <scale.Interval, int>{
@@ -271,9 +309,7 @@ var forms = <Form>[
       scale.i11: 17, // dom 11th
       scale.i13: 21, // dom 13th
     }
-    ..omit = <scale.Interval>[
-      scale.i3
-    ],
+    ..omit = <scale.Interval>[scale.i3],
   Form()
     ..name = "Major Thirteenth"
     ..pos = RegExp("$_majorExp${_nExp}13")
@@ -309,15 +345,15 @@ final String _nExp = r'[. ]*';
 final String _majorExp = r'(M|maj|major)';
 final String _minorExp = r'([^a-z]|^)(m|min|minor)';
 
-final String _flatExp  = r'(f|flat|b|♭)';
+final String _flatExp = r'(f|flat|b|♭)';
 final String _sharpExp = r'(♯|#|s|sharp)';
-final String _halfExp  = r'half';
+final String _halfExp = r'half';
 
 final String _omitExp = r'(omit|\-)';
 
-final String _dominantExp    = r'(^|dom|dominant)';
+final String _dominantExp = r'(^|dom|dominant)';
 final String _nondominantExp = r'(non|nondom|nondominant)';
-final String _diminishedExp  = r'(dim|dimin|diminished)';
-final String _augmentedExp   = r'(aug|augment|augmented)';
-final String _suspendedExp   = r'(sus|susp|suspend|suspended)';
-final String _harmonicExp    = r'(harm|harmonic)';
+final String _diminishedExp = r'(dim|dimin|diminished)';
+final String _augmentedExp = r'(aug|augment|augmented)';
+final String _suspendedExp = r'(sus|susp|suspend|suspended)';
+final String _harmonicExp = r'(harm|harmonic)';
